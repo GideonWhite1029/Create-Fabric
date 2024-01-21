@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
-import io.github.fabricators_of_create.porting_lib.entity.events.EntityEvents.EntitySizeEvent;
+import io.github.fabricators_of_create.porting_lib.entity.events.EntityEvents;
 import io.github.fabricators_of_create.porting_lib.util.UsernameCache;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -105,7 +105,7 @@ public class DeployerFakePlayer extends FakePlayer {
 		return owner == null ? super.getUUID() : owner;
 	}
 
-	public static void deployerHasEyesOnHisFeet(EntitySizeEvent event) {
+	public static void deployerHasEyesOnHisFeet(EntityEvents.EntitySizeEvent event) {
 		if (event.entity instanceof DeployerFakePlayer)
 			event.eyeHeight = 0;
 	}
@@ -115,8 +115,8 @@ public class DeployerFakePlayer extends FakePlayer {
 		if (trueSource != null && trueSource instanceof DeployerFakePlayer) {
 			DeployerFakePlayer fakePlayer = (DeployerFakePlayer) trueSource;
 			drops
-				.forEach(stack -> fakePlayer.getInventory()
-					.placeItemBackInInventory(stack.getItem()));
+					.forEach(stack -> fakePlayer.getInventory()
+							.placeItemBackInInventory(stack.getItem()));
 			return true;
 		}
 		return false;

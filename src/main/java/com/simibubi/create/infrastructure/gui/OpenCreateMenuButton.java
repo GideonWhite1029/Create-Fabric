@@ -35,7 +35,8 @@ public class OpenCreateMenuButton extends Button {
 	}
 
 	public static void click(Button b) {
-		ScreenOpener.open(new CreateMainMenuScreen(Minecraft.getInstance().screen));
+		Minecraft instance = Minecraft.getInstance();
+		ScreenOpener.open(new CreateMainMenuScreen(instance.screen));
 	}
 
 	public static class SingleMenuRow {

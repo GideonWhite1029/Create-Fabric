@@ -333,7 +333,7 @@ public class AllSoundEvents {
 
 	public static void playItemPickup(Player player) {
 		player.level().playSound(null, player.blockPosition(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, .2f,
-			1f + Create.RANDOM.nextFloat());
+			1f + player.level().getRandom().nextFloat());
 	}
 
 //	@SubscribeEvent

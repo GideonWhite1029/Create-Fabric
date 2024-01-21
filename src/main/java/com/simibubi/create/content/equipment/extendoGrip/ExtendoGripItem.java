@@ -42,18 +42,18 @@ public class ExtendoGripItem extends Item  {
 	public static final int MAX_DAMAGE = 200;
 
 	public static final AttributeModifier singleRangeAttributeModifier =
-		new AttributeModifier(UUID.fromString("7f7dbdb2-0d0d-458a-aa40-ac7633691f66"), "Range modifier", 3,
-			AttributeModifier.Operation.ADDITION);
+			new AttributeModifier(UUID.fromString("7f7dbdb2-0d0d-458a-aa40-ac7633691f66"), "Range modifier", 3,
+					AttributeModifier.Operation.ADDITION);
 	public static final AttributeModifier doubleRangeAttributeModifier =
-		new AttributeModifier(UUID.fromString("8f7dbdb2-0d0d-458a-aa40-ac7633691f66"), "Range modifier", 5,
-			AttributeModifier.Operation.ADDITION);
+			new AttributeModifier(UUID.fromString("8f7dbdb2-0d0d-458a-aa40-ac7633691f66"), "Range modifier", 5,
+					AttributeModifier.Operation.ADDITION);
 
 	private static final Supplier<Multimap<Attribute, AttributeModifier>> rangeModifier = Suppliers.memoize(() ->
-	// Holding an ExtendoGrip
-	ImmutableMultimap.of(ReachEntityAttributes.REACH, singleRangeAttributeModifier, ReachEntityAttributes.ATTACK_RANGE, singleRangeAttributeModifier));
+			// Holding an ExtendoGrip
+			ImmutableMultimap.of(ReachEntityAttributes.REACH, singleRangeAttributeModifier, ReachEntityAttributes.ATTACK_RANGE, singleRangeAttributeModifier));
 	private static final Supplier<Multimap<Attribute, AttributeModifier>> doubleRangeModifier = Suppliers.memoize(() ->
-	// Holding two ExtendoGrips o.O
-	ImmutableMultimap.of(ReachEntityAttributes.REACH, doubleRangeAttributeModifier, ReachEntityAttributes.ATTACK_RANGE, doubleRangeAttributeModifier));
+			// Holding two ExtendoGrips o.O
+			ImmutableMultimap.of(ReachEntityAttributes.REACH, doubleRangeAttributeModifier, ReachEntityAttributes.ATTACK_RANGE, doubleRangeAttributeModifier));
 
 	private static DamageSource lastActiveDamageSource;
 
@@ -82,12 +82,12 @@ public class ExtendoGripItem extends Item  {
 		if (holdingExtendo != wasHoldingExtendo) {
 			if (!holdingExtendo) {
 				player.getAttributes()
-					.removeAttributeModifiers(rangeModifier.get());
+						.removeAttributeModifiers(rangeModifier.get());
 				persistentData.remove(EXTENDO_MARKER);
 			} else {
 				AllAdvancements.EXTENDO_GRIP.awardTo(player);
 				player.getAttributes()
-					.addTransientAttributeModifiers(rangeModifier.get());
+						.addTransientAttributeModifiers(rangeModifier.get());
 				persistentData.putBoolean(EXTENDO_MARKER, true);
 			}
 		}
@@ -95,12 +95,12 @@ public class ExtendoGripItem extends Item  {
 		if (holdingDualExtendo != wasHoldingDualExtendo) {
 			if (!holdingDualExtendo) {
 				player.getAttributes()
-					.removeAttributeModifiers(doubleRangeModifier.get());
+						.removeAttributeModifiers(doubleRangeModifier.get());
 				persistentData.remove(DUAL_EXTENDO_MARKER);
 			} else {
 				AllAdvancements.EXTENDO_GRIP_DUAL.awardTo(player);
 				player.getAttributes()
-					.addTransientAttributeModifiers(doubleRangeModifier.get());
+						.addTransientAttributeModifiers(doubleRangeModifier.get());
 				persistentData.putBoolean(DUAL_EXTENDO_MARKER, true);
 			}
 		}
@@ -114,10 +114,10 @@ public class ExtendoGripItem extends Item  {
 
 		if (persistentData.contains(DUAL_EXTENDO_MARKER))
 			player.getAttributes()
-				.addTransientAttributeModifiers(doubleRangeModifier.get());
+					.addTransientAttributeModifiers(doubleRangeModifier.get());
 		else if (persistentData.contains(EXTENDO_MARKER))
 			player.getAttributes()
-				.addTransientAttributeModifiers(rangeModifier.get());
+					.addTransientAttributeModifiers(rangeModifier.get());
 	}
 
 	private static void findAndDamageExtendoGrip(Player player) {

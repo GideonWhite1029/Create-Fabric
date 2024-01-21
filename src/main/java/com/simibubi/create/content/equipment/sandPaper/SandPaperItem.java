@@ -56,20 +56,20 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 		InteractionResultHolder<ItemStack> FAIL = new InteractionResultHolder<>(InteractionResult.FAIL, itemstack);
 
 		if (itemstack.getOrCreateTag()
-			.contains("Polishing")) {
+				.contains("Polishing")) {
 			playerIn.startUsingItem(handIn);
 			return new InteractionResultHolder<>(InteractionResult.PASS, itemstack);
 		}
 
 		InteractionHand otherHand =
-			handIn == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
+				handIn == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
 		ItemStack itemInOtherHand = playerIn.getItemInHand(otherHand);
 		if (SandPaperPolishingRecipe.canPolish(worldIn, itemInOtherHand)) {
 			ItemStack item = itemInOtherHand.copy();
 			ItemStack toPolish = item.split(1);
 			playerIn.startUsingItem(handIn);
 			itemstack.getOrCreateTag()
-				.put("Polishing", NBTSerializer.serializeNBT(toPolish));
+					.put("Polishing", NBTSerializer.serializeNBT(toPolish));
 			playerIn.setItemInHand(otherHand, item);
 			return new InteractionResultHolder<>(InteractionResult.SUCCESS, itemstack);
 		}
@@ -86,7 +86,7 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 			if (!itemEntity.isAlive())
 				continue;
 			if (itemEntity.position()
-				.distanceTo(playerIn.position()) > 3)
+					.distanceTo(playerIn.position()) > 3)
 				continue;
 			ItemStack stack = itemEntity.getItem();
 			if (!SandPaperPolishingRecipe.canPolish(worldIn, stack))
@@ -99,14 +99,14 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 			return FAIL;
 
 		ItemStack item = pickUp.getItem()
-			.copy();
+				.copy();
 		ItemStack toPolish = item.split(1);
 
 		playerIn.startUsingItem(handIn);
 
 		if (!worldIn.isClientSide) {
 			itemstack.getOrCreateTag()
-				.put("Polishing", NBTSerializer.serializeNBT(toPolish));
+					.put("Polishing", NBTSerializer.serializeNBT(toPolish));
 			if (item.isEmpty())
 				pickUp.discard();
 			else
@@ -125,13 +125,13 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 		if (tag.contains("Polishing")) {
 			ItemStack toPolish = ItemStack.of(tag.getCompound("Polishing"));
 			ItemStack polished =
-				SandPaperPolishingRecipe.applyPolish(worldIn, entityLiving.position(), toPolish, stack);
+					SandPaperPolishingRecipe.applyPolish(worldIn, entityLiving.position(), toPolish, stack);
 
 			if (worldIn.isClientSide) {
 				spawnParticles(entityLiving.getEyePosition(1)
-					.add(entityLiving.getLookAngle()
-						.scale(.5f)),
-					toPolish, worldIn);
+								.add(entityLiving.getLookAngle()
+										.scale(.5f)),
+						toPolish, worldIn);
 				return stack;
 			}
 
@@ -140,7 +140,7 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 					player.drop(polished, false, false);
 				} else {
 					player.getInventory()
-						.placeItemBackInInventory(polished);
+							.placeItemBackInInventory(polished);
 				}
 			}
 			tag.remove("Polishing");
@@ -154,7 +154,7 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 		for (int i = 0; i < 20; i++) {
 			Vec3 motion = VecHelper.offsetRandomly(Vec3.ZERO, world.random, 1 / 8f);
 			world.addParticle(new ItemParticleOption(ParticleTypes.ITEM, polishedStack), location.x, location.y,
-				location.z, motion.x, motion.y, motion.z);
+					location.z, motion.x, motion.y, motion.z);
 		}
 	}
 
@@ -167,7 +167,7 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 		if (tag.contains("Polishing")) {
 			ItemStack toPolish = ItemStack.of(tag.getCompound("Polishing"));
 			player.getInventory()
-				.placeItemBackInInventory(toPolish);
+					.placeItemBackInInventory(toPolish);
 			tag.remove("Polishing");
 		}
 	}
@@ -192,7 +192,7 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 			}
 			if (newState.isPresent()) {
 				AllSoundEvents.SANDING_LONG.play(level, player, pos, 1,
-					1 + (level.random.nextFloat() * 0.5f - 1f) / 5f);
+						1 + (level.random.nextFloat() * 0.5f - 1f) / 5f);
 				level.levelEvent(player, 3004, pos, 0); // Spawn particles
 			}
 		}
@@ -205,11 +205,6 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 		}
 
 		return InteractionResult.PASS;
-	}
-
-	@Override
-	public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
-		return toolAction == ToolActions.AXE_SCRAPE || toolAction == ToolActions.AXE_WAX_OFF;
 	}
 
 	@Override
@@ -229,7 +224,7 @@ public class SandPaperItem extends Item implements CustomUseEffectsItem {
 		// After 6 ticks play the sound every 7th
 		if ((entity.getTicksUsingItem() - 6) % 7 == 0)
 			entity.playSound(entity.getEatingSound(stack), 0.9F + 0.2F * random.nextFloat(),
-				random.nextFloat() * 0.2F + 0.9F);
+					random.nextFloat() * 0.2F + 0.9F);
 
 		return true;
 	}
