@@ -6,5 +6,5 @@ No formatting, just plain text. CurseForge support for it is terrible.
 Change logging starts below:
 ----------
 - Upstream: fix item vault combined slotted storage (#1156)
-- Matched upstream build number
+- Matched upstream build number (1161)
 - Partially improved mixin compatibility
