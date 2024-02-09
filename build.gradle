@@ -110,7 +110,8 @@ def compat(DependencyHandler deps) {
     deps.modCompileOnly("vazkii.botania:Botania:$botania_version") { transitive = false }
     deps.modCompileOnly("com.terraformersmc:modmenu:$modmenu_version")
     deps.modCompileOnly("maven.modrinth:sandwichable:$sandwichable_version")
-    deps.modCompileOnly("maven.modrinth:sodium:$sodium_version")
+    deps.modImplementation("maven.modrinth:sodium:$sodium_version") // mod implementation so i can test compat
+    deps.modImplementation("maven.modrinth:indium:$indium_version")
 
     deps.modCompileOnly("dev.emi:trinkets:$trinkets_version")
     // for Trinkets
